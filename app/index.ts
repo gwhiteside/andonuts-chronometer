@@ -1,4 +1,4 @@
-import { me as appbit, me } from "appbit";
+import { me as appbit } from "appbit";
 import { battery } from "power";
 import { BodyPresenceSensor } from "body-presence";
 import { charger } from "power";
@@ -75,15 +75,15 @@ charger.addEventListener("change", onChargerChange);
 clock.addEventListener("tick", onClockTick);
 display.addEventListener("change", onDisplayChange);
 
-if(appbit.permissions.granted("access_activity")) {
+if(permission("access_activity")) {
 	userActivityAvailable = true;
 }
 
-if(today.local.elevationGain !== undefined && appbit.permissions.granted("access_activity")) {
+if(today.local.elevationGain !== undefined && permission("access_activity")) {
 	barometerAvailable = true;
 }
 
-if(HeartRateSensor && appbit.permissions.granted("access_heart_rate")) {
+if(HeartRateSensor && permission("access_heart_rate")) {
 	heartRateSensor = new HeartRateSensor();
 	//heartRateSensor.addEventListener("reading", onHeartRead);
 	heartRateSensor.start();
@@ -255,6 +255,11 @@ function updateClock(date: Date) {
 			}
 		}
 	}
+}
+
+/** Lazy shortcut for appbit.permissions.granted() */
+function permission(permission: PermissionName) {
+	return appbit.permissions.granted(permission);
 }
 
 function round(value: number, places: number) {
