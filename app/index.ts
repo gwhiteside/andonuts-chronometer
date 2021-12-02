@@ -34,10 +34,6 @@ const DAYS = HOURS * 24;
 const MILES_PER_METER = 1 / 1609.344;
 const KILOMETERS_PER_METER = 1 / 1000.0;
 
-const debugLabel = document.getElementById("debugLabel");
-
-clock.granularity = "seconds";
-
 const bgDay = document.getElementById("bgDay") as GraphicsElement;
 
 const ffMenu = "Earthbound_Menu_2x";
@@ -60,23 +56,25 @@ const imageHourOnes = document.getElementById("imageHourOnes") as ImageElement;
 const imageMinuteTens = document.getElementById("imageMinuteTens") as ImageElement;
 const imageMinuteOnes = document.getElementById("imageMinuteOnes") as ImageElement;
 
-let barometerAvailable = false;
-let bodyPresenceSensorAvailable = false;
-let heartRateSensorAvailable = false;
-let userActivityAvailable = false;
-
 let sunrise: number;
 let sunset: number;
 
-let heartRateSensor: HeartRateSensor;
-let bodyPresenceSensor: BodyPresenceSensor;
+let pulseSensor: HeartRateSensor;
+let bodySensor: BodyPresenceSensor;
 
-charger.addEventListener("change", onChargerChange);
-clock.addEventListener("tick", onClockTick);
-display.addEventListener("change", onDisplayChange);
+////////////////////////////////////////////////////////////////////////////////
+// initialize things, check permissions, set up sensors
+////////////////////////////////////////////////////////////////////////////////
+
+clock.granularity = "seconds";
+
+let barometerAvailable = false;
+let bodySensorAvailable = false;
+let pulseSensorAvailable = false;
+let activityAvailable = false;
 
 if(permission("access_activity")) {
-	userActivityAvailable = true;
+	activityAvailable = true;
 }
 
 if(today.local.elevationGain !== undefined && permission("access_activity")) {
@@ -84,21 +82,33 @@ if(today.local.elevationGain !== undefined && permission("access_activity")) {
 }
 
 if(HeartRateSensor && permission("access_heart_rate")) {
-	heartRateSensor = new HeartRateSensor();
-	//heartRateSensor.addEventListener("reading", onHeartRead);
-	heartRateSensor.start();
-	heartRateSensorAvailable = true;
+	pulseSensor = new HeartRateSensor();
+	pulseSensor.addEventListener("reading", onPulseSensorRead);
+	pulseSensor.start();
+	pulseSensorAvailable = true;
 }
 
 if(BodyPresenceSensor) {
-	bodyPresenceSensor = new BodyPresenceSensor();
-	//bodyPresenceSensor.addEventListener("reading", onBodyPresenceRead);
-	bodyPresenceSensor.start();
-	bodyPresenceSensorAvailable = true;
+	bodySensor = new BodyPresenceSensor();
+	bodySensor.addEventListener("reading", onBodySensorRead);
+	bodySensor.start();
+	bodySensorAvailable = true;
 }
 
-function onBodyPresenceRead() {
-	//bodyPresenceSensor.present
+charger.addEventListener("change", onChargerChange);
+clock.addEventListener("tick", onClockTick);
+display.addEventListener("change", onDisplayChange);
+
+////////////////////////////////////////////////////////////////////////////////
+// callbacks
+////////////////////////////////////////////////////////////////////////////////
+
+function onBodySensorRead() {
+
+}
+
+function onChargerChange() {
+
 }
 
 function onClockTick(tickEvent: TickEvent) {
@@ -133,24 +143,26 @@ function onClockTick(tickEvent: TickEvent) {
 	ffBattery.text = Math.floor(battery.chargeLevel).toString();
 	ffBattery.style.fill = "#f0f0f0";
 
-	ffPulse.text = (heartRateSensor.heartRate || 0).toString();
+	ffPulse.text = (pulseSensor.heartRate || 0).toString();
 	ffPulse.style.fill = "#f0f0f0";
 }
 
-function onHeartRead() {
+function onDisplayChange() {
+	if(pulseSensorAvailable) {
+		display.on ? pulseSensor.start() : pulseSensor.stop();
+	}
+	if(bodySensorAvailable) {
+		display.on ? bodySensor.start() : bodySensor.stop();
+	}
+}
+
+function onPulseSensorRead() {
 	
 }
 
-function onChargerChange() {
-
-}
-
-function onDisplayChange() {
-	if(heartRateSensorAvailable) {
-		display.on ? heartRateSensor.start() : heartRateSensor.stop();
-	}
-	display.on ? bodyPresenceSensor.start() : bodyPresenceSensor.stop();
-}
+////////////////////////////////////////////////////////////////////////////////
+// clock face update stuff
+////////////////////////////////////////////////////////////////////////////////
 
 function updateBackground(date: Date) {
 	if(!sunrise || !sunset) {
@@ -256,6 +268,10 @@ function updateClock(date: Date) {
 		}
 	}
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// helper functions
+////////////////////////////////////////////////////////////////////////////////
 
 /** Lazy shortcut for appbit.permissions.granted() */
 function permission(permission: PermissionName) {
