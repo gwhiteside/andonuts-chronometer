@@ -1,0 +1,15 @@
+#debugLabel {
+	font-size: 80;
+	font-family: System-Bold;
+	text-length: 32;
+	text-anchor: middle;
+	x: 50%;
+	y: 100%;
+	fill: white;
+}
+
+#pulseLabel {
+	x: 0;
+	y: 0;
+	fill: #f0f0f0;
+}

@@ -1,0 +1,63 @@
+<svg class="background">
+
+	<!-- background image -->
+
+	<image id="bgNight" href="background/onett-dark.png" opacity="1" />
+	<image id="bgDay" href="background/onett-light.png" opacity="1" />
+
+	<!-- menu background -->
+
+	<image id="menu" href="theme/plain/menu.png" />
+
+	<!-- menu labels -->
+
+	<image id="menu-labels" href="theme/plain/menu-labels.png" x="22" y="24" width="256" height="128" />
+
+	<!-- fitfont status text elements -->
+
+	<use href="#fitfont" id="steps-number" x="156" y="26">
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+	</use>
+
+	<use href="#fitfont" id="distance-number" x="156" y="58">
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+	</use>
+
+	<use href="#fitfont" id="calories-number" x="156" y="90">
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+		<use href="#fitfont-char" /><use href="#fitfont-char" />
+	</use>
+
+	<use href="#fitfont" id="battery-number" x="270" y="26">
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+	</use>
+
+	<use href="#fitfont" id="pulse-number" x="270" y="58">
+		<use href="#fitfont-char" /><use href="#fitfont-char" /><use href="#fitfont-char" />
+	</use>
+
+	<!-- day of the week -->
+
+	<image id="day" x="52" y="170" width="159" height="27" />
+	
+	<!-- meridiem indicator -->
+
+	<image id="meridiem" x="52" y="212" width="52" height="36" />
+
+	<!-- rolling clock sprites -->
+
+	<svg id="clock" x="110" y="200">
+		<use id="spriteHourTens" href="#symbolHourTens" x="0" y="0" width="32" height="64" />
+		<use id="spriteHourOnes" href="#symbolHourOnes" x="32" y="0" width="32" height="64" />
+		<image id="separatorHourMinute" href="theme/plain/digits/separator-thin.png" x="64" y="0" width="16" height="64" />
+		<use id="spriteMinuteTens" href="#symbolMinuteTens" x="80" y="0" width="32" height="64" />
+		<use id="spriteMinuteOnes" href="#symbolMinuteOnes" x="112" y="0" width="32" height="64" />
+		<!--image id="separatorMinuteSecond" href="theme/plain/digits/separator.png" x="148" y="0" width="20" height="64" /-->
+		<!--use id="spriteSecondTens" href="#symbolSecondTens" /-->
+		<!--use id="spriteSecondOnes" href="#symbolSecondOnes" /-->
+	</svg>
+
+	<text id="debugLabel" />
+</svg>

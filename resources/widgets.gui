@@ -1,0 +1,41 @@
+<svg>
+	<defs>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="import" href="/mnt/sysassets/widgets_common.gui" />
+		<link rel="import" href="fitfont.gui" />
+
+		<!-- Hour -->
+		<symbol id="symbolHourTens" href="#sprite-image">
+			<animate id="anim" attributeName="value" begin="enable" from="0" to="4" dur="0.2" repeatDur="0" repeatCount="indefinite" />
+			<image id="imageHourTens" />
+		</symbol>
+		<symbol id="symbolHourOnes" href="#sprite-image">
+			<animate id="anim" attributeName="value" begin="enable" from="0" to="4" dur="0.2" repeatDur="0" repeatCount="indefinite" />
+			<image id="imageHourOnes" />
+		</symbol>
+
+		<!-- Separator -->
+
+		<!-- Minute -->
+		<symbol id="symbolMinuteTens" href="#sprite-image">
+			<animate id="anim" attributeName="value" begin="enable" from="0" to="4" dur="0.2" repeatDur="0" repeatCount="indefinite" />
+			<image id="imageMinuteTens" />
+		</symbol>
+		<symbol id="symbolMinuteOnes" href="#sprite-image">
+			<animate id="anim" attributeName="value" begin="enable" from="0" to="4" dur="0.2" repeatDur="0" repeatCount="indefinite" />
+			<image id="imageMinuteOnes" />
+		</symbol>
+
+		<!-- Separator -->
+
+		<!-- Second -->
+		<!--symbol id="symbolSecondTens" href="#sprite-image">
+			<animate id="anim" attributeName="value" begin="enable" from="0" to="4" dur="0.2" repeatDur="0" repeatCount="indefinite" />
+			<image id="imageSecondTens" x="168" y="0" width="32" height="64" />
+		</symbol>
+		<symbol id="symbolSecondOnes" href="#sprite-image">
+			<animate id="anim" attributeName="value" begin="enable" from="0" to="4" dur="0.2" repeatDur="0" repeatCount="indefinite" />
+			<image id="imageSecondOnes" x="200" y="0" width="32" height="64" />
+		</symbol-->
+	</defs>
+</svg>
